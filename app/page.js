@@ -32,8 +32,6 @@ export default function Home() {
       if (!isLoading) {
         if (firebaseUser) {
           router.push("/account");
-        } else {
-          router.push("/");
         }
       }
     };
