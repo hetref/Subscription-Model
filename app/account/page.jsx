@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { getCheckoutUrl, getPortalUrl } from "@/stripe";
 import { getPremiumStatus } from "./getPremiumStatus";
 import { useRouter } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Account = () => {
   const app = initFirebase();
@@ -13,6 +14,7 @@ const Account = () => {
 
   const userName = auth.currentUser?.displayName;
   const email = auth.currentUser?.email;
+  const [user, loading] = useAuthState(auth);
   const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
 
@@ -23,8 +25,11 @@ const Account = () => {
         : false;
       setIsPremium(newPremiumStatus);
     };
+
+    console.log(user, loading);
+
     checkPremium();
-  }, [app, auth.currentUser?.uid, auth.currentUser]);
+  }, [app, auth.currentUser?.uid, auth.currentUser, loading, user]);
 
   const upgradeToPremium = async () => {
     const priceId = "price_1OiO4ISFqS2vwTXYPZjTmYqO";
