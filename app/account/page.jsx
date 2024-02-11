@@ -63,6 +63,8 @@ const Account = () => {
           ) : (
             <p className="mb-6 text-red-900">
               You are a <b>free user</b>
+              <br />
+              Use this test card to buy the subscription 400000356000000
             </p>
           )}
           {isPremium ? (
